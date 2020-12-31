@@ -17,6 +17,8 @@ app.use(bodyParser.json());
 
 app.get('/tasks', Task.index);
 app.post('/task', Task.create);
+app.post('/login', Task.login);
+app.post('/createlogin', Task.createAdmin);
 app.get('/task/:id', Task.read);
 app.delete('/task/:id', Task.delete);
 app.put('/task/:id', Task.update);
