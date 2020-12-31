@@ -1,11 +1,10 @@
-import TaskModul from '../modules/Task';
+import PostModel from '../modules/Task';
 import Task from '../modules/Task';
 
 
 class TaskController {
     index(req, res) {
         Task.find().then((err, tasks) => {
-            console.log(tasks)
             if (err) {
                 res.send(err);
             }
@@ -17,8 +16,7 @@ class TaskController {
 
         const data = req.body;
 
-        const task = new TaskModel({
-            id: data.id = Math.random(),
+        const task = new PostModel({
             username: data.username,
             email: data.email,
             text: data.text,
@@ -32,7 +30,7 @@ class TaskController {
         });
     }
     read(req, res) {
-        TaskModul.findOne({
+        PostModel.findOne({
             _id: req.params.id
         }).then(task => {
             if (!task) {
@@ -46,7 +44,7 @@ class TaskController {
     }
     update(req, res) {
 
-        TaskModul.findByIdAndUpdate(req.params.id, {
+        PostModel.findByIdAndUpdate(req.params.id, {
             $set: req.body
         }, (err) => {
             if (err) {
@@ -58,7 +56,7 @@ class TaskController {
         });
     }
     delete(req, res) {
-        TaskModul.remove({
+        PostModel.deleteOne({
             _id: req.params.id
         }).then((task) => {
             if (task) {
