@@ -12,7 +12,7 @@ let token = '2322ffww3332dfwe3234';
 
 class TaskController {
     index(req, res) {
-        console.log(req.query);
+        console.log('data request');
         if (req.query.developer) {
             Task.find().then((tasks, err) => {
                 if (tasks) {
@@ -83,8 +83,7 @@ class TaskController {
         const data = req.body;
 
         User.find().then((users, err) => {
-            console.log(users);
-            console.log(data)
+            console.log('logging');
             if (data.username === users[0].username && data.password === users[0].password) {
                 setTimeout(() => {
                     token = false;
