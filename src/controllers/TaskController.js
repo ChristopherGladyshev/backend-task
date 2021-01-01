@@ -130,6 +130,7 @@ class TaskController {
         });
     }
     delete(req, res) {
+        console.log("DEL");
         PostModel.deleteOne({
             _id: req.params.id
         }).then((task) => {

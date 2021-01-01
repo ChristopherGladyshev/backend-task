@@ -18,8 +18,9 @@ app.use( bodyParser.urlencoded({
     useUnifiedTopology: true
 }));
 app.use(bodyParser.json());
+app.use(cors());
 
-app.get('/tasks',cors(), Task.index);
+app.get('/tasks', Task.index);
 app.post('/task', Task.create);
 app.post('/login', Task.login);
 app.post('/createlogin', Task.createAdmin);
