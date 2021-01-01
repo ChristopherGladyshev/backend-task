@@ -1,21 +1,25 @@
 import mongoose from 'mongoose';
 import express from "express";
 import bodyParser from 'body-parser';
+import cors from 'cors';
 
 import TaskController from './controllers/TaskController';
 const Task = new TaskController();
 
 const app = express();
-mongoose.connect('mongodb://localhost:27017/task', { useUnifiedTopology: true, useNewUrlParser: true });
+mongoose.connect('mongodb://localhost:27017/task', {
+    useUnifiedTopology: true,
+    useNewUrlParser: true
+});
 
-app.use(bodyParser.urlencoded({
+app.use( bodyParser.urlencoded({
     extended: true,
     useNewUrlParser: true,
     useUnifiedTopology: true
 }));
 app.use(bodyParser.json());
 
-app.get('/tasks', Task.index);
+app.get('/tasks',cors(), Task.index);
 app.post('/task', Task.create);
 app.post('/login', Task.login);
 app.post('/createlogin', Task.createAdmin);
