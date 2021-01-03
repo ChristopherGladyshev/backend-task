@@ -6,8 +6,8 @@ import User from '../modules/User';
 const validMail = () => {
     return new RegExp(/^[\w-\.\d*]+@[\w\d]+(\.\w{2,4})$/)
 };
-
-let token = '2322ffww3332dfwe3234';
+let a = '2322ffww3332dfwe3234'
+let token = null;
 
 
 class TaskController {
@@ -26,7 +26,7 @@ class TaskController {
                 }
                 res.json(err);
             });
-        }else{
+        } else {
             res.send({
                 status: `error`,
                 message: `invalid request, you may have forgotten the /?developer=name/ parameter`
@@ -89,9 +89,10 @@ class TaskController {
                     token = false;
                 }, 8.64e+7);
                 res.send({
-                    token: token,
+                    token: a,
                 })
             } else {
+                token = false;
                 res.send({
                     status: `error`,
                     message: {
@@ -117,17 +118,22 @@ class TaskController {
         })
     }
     update(req, res) {
-
-        PostModel.findByIdAndUpdate(req.params.id, {
-            $set: req.body
-        }, (err) => {
-            if (err) {
-                res.send(err);
-            }
-            res.json({
-                status: `updated`
+        if (token) {
+            PostModel.findByIdAndUpdate(req.params.id, {
+                $set: req.body
+            }, (err) => {
+                if (err) {
+                    res.send(err);
+                }
+                res.json({
+                    status: `updated`
+                });
             });
-        });
+        }else {
+            res.json({
+                status: `Sign in`
+            });
+        }
     }
     delete(req, res) {
         console.log("DEL");
