@@ -11,6 +11,12 @@ let token = null;
 
 
 class TaskController {
+
+    static(req, res) {
+        res.render('index.jade');        
+    }
+
+
     index(req, res) {
         console.log('data request');
         if (req.query.developer) {
@@ -118,22 +124,27 @@ class TaskController {
         })
     }
     update(req, res) {
-        if (token) {
-            PostModel.findByIdAndUpdate(req.params.id, {
-                $set: req.body
-            }, (err) => {
-                if (err) {
-                    res.send(err);
-                }
-                res.json({
-                    status: `updated`
-                });
-            });
-        }else {
+
+        PostModel.findByIdAndUpdate(req.params.id, {
+            $set: req.body
+        }, {
+            new: true,
+            useFindAndModify: false
+        }).then((request) => {
             res.json({
-                status: `Sign in`
+                head: "done",
+                body: req.body || "egs",
+                params: req.params.id,
+                status: `updated`
             });
-        }
+        }).catch(() => {
+            res.json({
+                head: "done",
+                body: req.body || "egs",
+                params: req.params.id,
+                status: `Err`
+            });
+        })
     }
     delete(req, res) {
         console.log("DEL");

@@ -18,8 +18,10 @@ app.use( bodyParser.urlencoded({
     useUnifiedTopology: true
 }));
 app.use(bodyParser.json());
+app.use(express.static(__dirname + '/build'));
 app.use(cors());
 
+app.get('/', Task.static);
 app.get('/tasks', Task.index);
 app.post('/task', Task.create);
 app.post('/login', Task.login);
