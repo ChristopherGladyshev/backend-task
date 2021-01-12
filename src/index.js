@@ -18,8 +18,9 @@ app.use( bodyParser.urlencoded({
     useUnifiedTopology: true
 }));
 app.use(bodyParser.json());
-app.use(express.static(__dirname + '/build'));
+
 app.use(cors());
+app.use('/todo', express.static(__dirname + '/build'));
 
 app.get('/', Task.static);
 app.get('/tasks', Task.index);
@@ -30,6 +31,6 @@ app.get('/task/:id', Task.read);
 app.delete('/task/:id', Task.delete);
 app.put('/task/:id', Task.update);
 
-app.listen(3000, () => {
-    console.log(`SERVER STARTED! port:3000`);
+app.listen(80, () => {
+    console.log(`SERVER STARTED! port:80`);
 });

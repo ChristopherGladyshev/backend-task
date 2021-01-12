@@ -13,7 +13,8 @@ let token = null;
 class TaskController {
 
     static(req, res) {
-        res.render('index.jade');        
+        res.send("<h1 style='color: red'>Что ты тут забыл?</h1>");  
+        
     }
 
 
