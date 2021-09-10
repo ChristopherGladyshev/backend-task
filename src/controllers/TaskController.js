@@ -41,8 +41,9 @@ class TaskController {
         }
     }
     create(req, res) {
-
+        console.log('Попытка создания записи');
         const data = req.body;
+        console.log(data);
         if (validMail().test(data.email) && data.username.length >= 3 && data.text) {
 
             const task = new PostModel({

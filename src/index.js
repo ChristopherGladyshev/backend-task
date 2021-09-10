@@ -1,13 +1,13 @@
 import mongoose from 'mongoose';
 import express from "express";
-import bodyParser from 'body-parser';
+const bodyParser = require("body-parser");
 import cors from 'cors';
 
 import TaskController from './controllers/TaskController';
 const Task = new TaskController();
 
 const app = express();
-mongoose.connect('mongodb://localhost:27017/task', {
+mongoose.connect('mongodb://127.0.0.1:27017/task', {
     useUnifiedTopology: true,
     useNewUrlParser: true
 });
@@ -20,17 +20,15 @@ app.use( bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 app.use(cors());
-app.use('/todo', express.static(__dirname + '/build'));
 
-app.get('/', Task.static);
-app.get('/tasks', Task.index);
-app.post('/task', Task.create);
-app.post('/login', Task.login);
-app.post('/createlogin', Task.createAdmin);
-app.get('/task/:id', Task.read);
-app.delete('/task/:id', Task.delete);
-app.put('/task/:id', Task.update);
+app.get('/api/tasks', Task.index);
+app.post('/api/task', Task.create);
+app.post('/api/login', Task.login);
+app.post('/api/createlogin', Task.createAdmin);
+app.get('/api/task/:id', Task.read);
+app.delete('/api/task/:id', Task.delete);
+app.put('/api/task/:id', Task.update);
 
-app.listen(80, () => {
-    console.log(`SERVER STARTED! port:80`);
+app.listen(8000, () => {
+    console.log(`SERVER STARTED! port:8000`);
 });
